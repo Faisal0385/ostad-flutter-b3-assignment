@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ostad_flutter_assignments/pages/page_three.dart';
 import 'package:ostad_flutter_assignments/pages/page_two.dart';
-import 'package:ostad_flutter_assignments/widgets/bottomNavBar.dart';
-import 'package:ostad_flutter_assignments/widgets/custom_list_title.dart';
-import 'package:ostad_flutter_assignments/widgets/custom_floating_btn.dart';
-import 'package:ostad_flutter_assignments/widgets/tabs_widgets.dart';
 
 class PageOne extends StatefulWidget {
   const PageOne({Key? key}) : super(key: key);
@@ -23,7 +19,7 @@ class _PageOneState extends State<PageOne> {
         drawer: Drawer(
           child: ListView(
             children: [
-              UserAccountsDrawerHeader(
+              const UserAccountsDrawerHeader(
                 currentAccountPicture: CircleAvatar(
                   backgroundImage: NetworkImage(
                       "https://media.licdn.com/dms/image/C5603AQHkX5-u2txrRQ/profile-displayphoto-shrink_100_100/0/1597431148339?e=1691625600&v=beta&t=6QNyLZtF1FPzNk0TMegoAjJx2opCWuKKYX8kaT25FLQ"),
@@ -31,30 +27,118 @@ class _PageOneState extends State<PageOne> {
                 accountName: Text("Faisal A. Salam"),
                 accountEmail: Text("faisaltez@gmail.con"),
               ),
-              customerListTile(context, const Icon(Icons.home), 'Page One', const PageOne()),
-              customerListTile(context, const Icon(Icons.shopping_bag), 'Page Two', const PageTwo()),
-              customerListTile(context, const Icon(Icons.person), 'Page Three', const PageThree()),
+
+              ListTile(
+                leading: const Icon(Icons.home),
+                title: const Text("Page One"),
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => const PageOne()));
+                },
+              ),
+
+              ListTile(
+                leading: const Icon(Icons.shopping_bag),
+                title: const Text("Page Two"),
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => const PageTwo()));
+                },
+              ),
+
+              ListTile(
+                leading: const Icon(Icons.person),
+                title: const Text("Page Three"),
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => const PageThree()));
+                },
+              ),
+
             ],
           ),
         ),
         appBar: AppBar(
-          title: Text("Ostad"),
+          title: const Text("Ostad"),
           bottom: TabBar(
             tabs: [
-              TabWidget(context, 'Page One', Icon(Icons.home), PageOne()),
-              TabWidget(context, 'Page Two', Icon(Icons.shopping_bag), PageTwo()),
-              TabWidget(context, 'Page Three', Icon(Icons.person), PageThree()),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => const PageOne()));
+                },
+                child: const Tab(
+                  text: 'Page One',
+                  icon: Icon(Icons.home),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => const PageTwo()));
+                },
+                child: const Tab(
+                  text: 'Page Two',
+                  icon: Icon(Icons.shopping_bag),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => const PageThree()));
+                },
+                child: const Tab(
+                  text: 'Page Three',
+                  icon: Icon(Icons.person),
+                ),
+              ),
             ],
           ),
         ),
-        body: Center(
+        body: const Center(
           child: Text(
             "Page One !!!",
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
         ),
-        bottomNavigationBar: BottomNavBar(context, 0),
-        floatingActionButton: CustomFloatingBtn(Colors.yellow),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: 0,
+          elevation: 5,
+          items: [
+            BottomNavigationBarItem(
+                icon: IconButton(
+                  icon: const Icon(Icons.home),
+                  onPressed: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) => const PageOne()));
+                  },
+                ),
+                label: "Page One"),
+            BottomNavigationBarItem(
+                icon: IconButton(
+                  icon: const Icon(Icons.shopping_bag),
+                  onPressed: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) => const PageTwo()));
+                  },
+                ),
+                label: "Page Two"),
+            BottomNavigationBarItem(
+                icon: IconButton(
+                  icon: const Icon(Icons.person),
+                  onPressed: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) => const PageThree()));
+                  },
+                ),
+                label: "Page Three"),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          backgroundColor: Colors.yellow,
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }
